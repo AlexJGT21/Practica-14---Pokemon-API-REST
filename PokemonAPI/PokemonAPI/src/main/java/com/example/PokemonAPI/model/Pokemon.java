@@ -1,6 +1,5 @@
 package com.example.PokemonAPI.model;
 
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -65,7 +64,7 @@ public class Pokemon {
     @Column(name = "peso_Pokemon")
     private Double peso;
 
-    @Pattern(regexp = "^\\\\d{10}$", message = "El formato del telefono no es valido.")
+    @Pattern(regexp = "^\\d{10}$", message = "El formato del telefono no es valido.")
     private String telefonoEntrenador;
 
     @AssertTrue(message = "El pokemon debe estar sano.")

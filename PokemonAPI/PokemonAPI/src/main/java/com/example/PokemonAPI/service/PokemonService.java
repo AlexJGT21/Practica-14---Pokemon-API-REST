@@ -6,10 +6,6 @@ import com.example.PokemonAPI.model.Pokemon;
 import com.example.PokemonAPI.repository.PokemonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +22,7 @@ public class PokemonService {
 
     //GUARDA UN POKEMON
     public Pokemon guardar(Pokemon pokemon) {
-        if (pokemonRepository.existByNombreIgnoreCase(pokemon.getNombre())) {
+        if (pokemonRepository.existsByNombreIgnoreCase(pokemon.getNombre())) {
             throw new BusinessRuleException("Pokemon Ya existe en el sistema");
         }
         return pokemonRepository.save(pokemon);
