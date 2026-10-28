@@ -32,5 +32,45 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
     }
 
-}
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ErrorDTO> manejarRecursoNoEncontrado(ResourceNotFoundException ex) {
+        List<String> detalles = new ArrayList<>();
+        detalles.add(ex.getMessage());
 
+        ErrorDTO errorDTO = new ErrorDTO(
+                "El recurso solicitado no fue encontrado.",
+                detalles,
+                LocalDateTime.now());
+
+        return new ResponseEntity<>(errorDTO, HttpStatus.NOT_FOUND);
+    }
+
+    //---------------------
+
+    @ExceptionHandler(BusinessRuleException.class)
+    public ResponseEntity<ErrorDTO> manejarReglasDeNegocio(ResourceNotFoundException ex) {
+        List<String> detalles = new ArrayList<>();
+        detalles.add(ex.getMessage());
+
+        ErrorDTO errorDTO = new ErrorDTO(
+                "El recurso solicitado no fue encontrado.",
+                detalles,
+                LocalDateTime.now());
+
+        return new ResponseEntity<>(errorDTO, HttpStatus.UNPROCESSABLE_CONTENT);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorDTO> errorDelProgramador(ResourceNotFoundException ex) {
+        List<String> detalles = new ArrayList<>();
+        detalles.add(ex.getMessage());
+
+        ErrorDTO errorDTO = new ErrorDTO(
+                "Ocurrio un error interno en el servidor.",
+                detalles,
+                LocalDateTime.now());
+
+        return new ResponseEntity<>(errorDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+}

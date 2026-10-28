@@ -1,5 +1,7 @@
 package com.example.PokemonAPI.service;
 
+import com.example.PokemonAPI.exception.BusinessRuleException;
+import com.example.PokemonAPI.exception.ResourceNotFoundException;
 import com.example.PokemonAPI.model.Pokemon;
 import com.example.PokemonAPI.repository.PokemonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +26,15 @@ public class PokemonService {
 
     //GUARDA UN POKEMON
     public Pokemon guardar(Pokemon pokemon) {
+        if (pokemonRepository.existByNombreIgnoreCase(pokemon.getNombre())) {
+            throw new BusinessRuleException("Pokemon Ya existe en el sistema");
+        }
         return pokemonRepository.save(pokemon);
     }
 
     //BUSCA UN POKEMONS POR ID
-    public Optional<Pokemon> buscarPorId(Long id) {
-        return pokemonRepository.findById(id);
+    public Pokemon buscarPorId(Long id) {
+        return pokemonRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No se encontro el pokemon con ID: " + id));
     }
 
     //ACTUALIZA COMPLETAMENTE UN POKEMON
@@ -71,4 +76,3 @@ public class PokemonService {
 
 
 }
-

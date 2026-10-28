@@ -25,7 +25,7 @@ public class PokemonController {
     //OBTENER UN POKEMON POR ID
     @GetMapping("/{id}")
     public Pokemon listarPorId(@PathVariable Long id) {
-        return pokemonService.buscarPorId(id).orElse(null);
+        return pokemonService.buscarPorId(id);
     }
 
     //GUARDA UN POKEMON
